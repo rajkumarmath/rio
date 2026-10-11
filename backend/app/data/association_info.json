@@ -1,0 +1,27 @@
+{
+    "mission": "To foster a lifelong connection between REVA UNIVERSITY and its alumni.",
+    "overview": "The REVA Alumni Association serves as the primary link between the university and its global network of graduates.",
+    "contact_email": "alumni@reva.edu.in",
+    "contact_phone": "+91-80-4696-6966",
+    "address": "Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bangalore, Karnataka, India, 560064",
+    "committee_members": [
+        {
+            "name": "Jane Doe",
+            "role": "President"
+        },
+        {
+            "name": "John Smith",
+            "role": "Secretary"
+        }
+    ],
+    "initiatives": [
+        {
+            "title": "Global Mentorship Program",
+            "description": "Connecting recent graduates with industry veterans."
+        },
+        {
+            "title": "Annual Alumni Fund",
+            "description": "Raising funds for student scholarships and campus improvements."
+        }
+    ]
+}
