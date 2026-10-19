@@ -27,32 +27,39 @@ Render natively supports Python applications and binds to the `$PORT` environmen
    ```bash
    pip install -r requirements.txt
    ```
-4. Set the Start Command:
+4. Set the Start Command (Automates migrations & seeding without needing a Shell):
    ```bash
-   uvicorn main:app --host 0.0.0.0 --port $PORT
+   alembic upgrade head && python seed_demo_data.py && uvicorn main:app --host 0.0.0.0 --port $PORT
    ```
 
 ### Environment Variables
 Configure these in the Render dashboard (Environment tab):
-- `DATABASE_URL`: Your PostgreSQL connection string.
-- `SECRET_KEY`: Generate a secure random string (e.g., `openssl rand -hex 32`).
+- `DATABASE_URL`: Your Neon PostgreSQL connection string (e.g., `postgresql://...`).
+- `SECRET_KEY`: Generate a secure random string (e.g., `openssl rand -hex 32` or any long random text).
 - `ALGORITHM`: `HS256`
 - `ACCESS_TOKEN_EXPIRE_MINUTES`: `1440` (24 hours)
-- `FRONTEND_URL`: The production URL of your Next.js app (e.g., `https://my-alumni-app.vercel.app`). *This strictly locks down CORS.*
+- `FRONTEND_URL`: The production URL of your Next.js app (e.g., `https://my-alumni-app.vercel.app`).
 
-### Applying Database Migrations
-Once the service is deployed, open the **Render Shell** (in the Render dashboard for your service) and run:
-```bash
-alembic upgrade head
-```
-This will construct the PostgreSQL schema.
+### Applying Migrations & Seeding Data on Free Tier (No Shell Required)
+Since Render's interactive Web Shell is disabled on the free tier, use either of these methods:
 
-### Creating the First Admin
-While still in the Render Shell, run the secure admin creation script:
+#### Option A: Automated via Render Start Command (Recommended)
+By setting the Start Command to:
 ```bash
-python create_admin.py --username admin --email admin@university.edu
+alembic upgrade head && python seed_demo_data.py && uvicorn main:app --host 0.0.0.0 --port $PORT
 ```
-You will be prompted to securely type a password.
+Render automatically builds the tables, seeds the demo alumni and departments, and starts the API every time it deploys.
+
+#### Option B: From Your Local Terminal (Direct to Cloud DB)
+You can run migrations and create the admin user directly from your local terminal against your cloud database:
+```powershell
+# In Windows PowerShell:
+$env:DATABASE_URL="postgresql://user:password@ep-xyz.neon.tech/neondb?sslmode=require"
+cd backend
+.\venv\Scripts\python.exe -m alembic upgrade head
+.\venv\Scripts\python.exe seed_demo_data.py
+.\venv\Scripts\python.exe create_admin.py --username admin --email admin@reva.edu.in --password "YourAdminPassword123!"
+```
 
 ---
 

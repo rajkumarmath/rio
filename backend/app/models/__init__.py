@@ -15,6 +15,8 @@ class AdministrativeUser(Base):
     announcements = relationship("Announcement", back_populates="author")
     audit_logs = relationship("AuditLog", back_populates="admin")
 
+AdminUser = AdministrativeUser
+
 class Department(Base):
     __tablename__ = "departments"
 
