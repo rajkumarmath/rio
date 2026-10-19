@@ -25,9 +25,11 @@ def main():
             return
 
     # Check if DATABASE_URL is set in environment, otherwise fallback to settings
-    db_url = os.environ.get("DATABASE_URL", settings.DATABASE_URL)
+    db_url = os.environ.get("DATABASE_URL", settings.DATABASE_URL).strip()
     if db_url.startswith("postgres://"):
-        db_url = db_url.replace("postgres://", "postgresql://", 1)
+        db_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+    elif db_url.startswith("postgresql://") and not db_url.startswith("postgresql+"):
+        db_url = db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
 
     engine = create_engine(db_url)
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
