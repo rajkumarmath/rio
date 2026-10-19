@@ -20,18 +20,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
 # Virtual environments
 venv/
 .venv/
@@ -45,6 +33,8 @@ env/
 .env.test.local
 .env.production.local
 .env.*
+!.env.example
+
 
 # OS generated files
 .DS_Store
