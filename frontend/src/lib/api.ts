@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, "");
 
 export class ApiError extends Error {
   status: number;
@@ -9,7 +10,8 @@ export class ApiError extends Error {
 }
 
 async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${cleanEndpoint}`;
   try {
     const response = await fetch(url, {
       ...options,
@@ -22,7 +24,7 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
     });
 
     if (!response.ok) {
-      throw new ApiError(`API Error: ${response.statusText}`, response.status);
+      throw new ApiError(`API Error: ${response.statusText} (${response.status}) at ${url}`, response.status);
     }
 
     if (response.status === 204) {
@@ -32,7 +34,8 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
     return await response.json();
   } catch (error) {
     if (error instanceof ApiError) throw error;
-    throw new ApiError(error instanceof Error ? error.message : "Network error", 500);
+    const msg = error instanceof Error ? error.message : "Network error";
+    throw new ApiError(`Failed to fetch ${url}: ${msg}`, 500);
   }
 }
 

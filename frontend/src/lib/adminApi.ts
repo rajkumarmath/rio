@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
 import { ApiError } from "./api";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, "");
 
 async function getAdminToken() {
   const cookieStore = await cookies();
@@ -15,7 +16,8 @@ export async function fetchAdminApi<T>(endpoint: string, options: RequestInit = 
     throw new ApiError("Unauthorized", 401);
   }
 
-  const url = `${API_BASE_URL}${endpoint}`;
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${cleanEndpoint}`;
   try {
     const response = await fetch(url, {
       ...options,

@@ -9,9 +9,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Parse comma-separated origins and strip trailing slashes
+raw_origins = settings.FRONTEND_URL.split(",")
+allowed_origins = [orig.strip().rstrip("/") for orig in raw_origins if orig.strip()]
+if "http://localhost:3000" not in allowed_origins:
+    allowed_origins.append("http://localhost:3000")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_URL],
+    allow_origins=allowed_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

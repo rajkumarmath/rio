@@ -23,8 +23,9 @@ export default async function AlumniDirectory({
 
   try {
     data = await getAlumni({ page, size: 12, q, year, department, company, designation, location });
-  } catch (err) {
-    error = "Failed to load alumni directory. Please try again later.";
+  } catch (err: any) {
+    console.error("Failed to load alumni directory:", err);
+    error = err?.message || "Failed to load alumni directory. Please try again later.";
   }
 
   return (
