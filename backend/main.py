@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.endpoints import importer, alumni, association, announcements, admin_alumni, admin_stats
+from app.api.endpoints import importer, alumni, association, announcements, admin_alumni, admin_stats, auth
 
 app = FastAPI(
     title="AlumniSphere API",
@@ -24,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(importer.router, prefix="/api/admin/importer", tags=["importer"])
 app.include_router(admin_alumni.router, prefix="/api/admin/alumni", tags=["admin_alumni"])
 app.include_router(admin_stats.router, prefix="/api/admin/stats", tags=["admin_stats"])

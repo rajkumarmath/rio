@@ -6,7 +6,7 @@ from app.core.config import settings
 from app.database import get_db
 from app.models import AdministrativeUser
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 
 def get_current_admin(
     token: str = Depends(oauth2_scheme), 
