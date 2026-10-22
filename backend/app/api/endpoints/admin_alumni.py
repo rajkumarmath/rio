@@ -69,6 +69,9 @@ def create_alumni(data: AlumniCreateUpdate, db: Session = Depends(get_db), admin
         location=data.location,
         bio=data.bio,
         linkedin_url=data.linkedin_url,
+        avatar_url=data.avatar_url,
+        is_claimed=data.is_claimed if data.is_claimed is not None else False,
+        is_mentor=data.is_mentor if data.is_mentor is not None else False,
         department_id=data.department_id,
         batch_id=data.batch_id
     )
@@ -96,6 +99,12 @@ def update_alumni(alumni_id: int, data: AlumniCreateUpdate, db: Session = Depend
     profile.location = data.location
     profile.bio = data.bio
     profile.linkedin_url = data.linkedin_url
+    if data.avatar_url is not None:
+        profile.avatar_url = data.avatar_url
+    if data.is_claimed is not None:
+        profile.is_claimed = data.is_claimed
+    if data.is_mentor is not None:
+        profile.is_mentor = data.is_mentor
     profile.department_id = data.department_id
     profile.batch_id = data.batch_id
     

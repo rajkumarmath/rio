@@ -45,7 +45,11 @@ export interface Alumni {
   first_name: string;
   last_name: string;
   email?: string;
+  phone?: string;
   linkedin_url?: string;
+  avatar_url?: string;
+  is_claimed?: boolean;
+  is_mentor?: boolean;
   location?: string;
   bio?: string;
   department?: { name: string };
@@ -66,6 +70,25 @@ export interface Alumni {
   }>;
 }
 
+export function getAlumniAvatarUrl(alumnus: {
+  avatar_url?: string | null;
+  linkedin_url?: string | null;
+  first_name?: string;
+  last_name?: string;
+}): string {
+  if (alumnus.avatar_url && alumnus.avatar_url.trim()) {
+    return alumnus.avatar_url.trim();
+  }
+  if (alumnus.linkedin_url) {
+    const match = alumnus.linkedin_url.match(/linkedin\.com\/in\/([a-zA-Z0-9_-]+)/i);
+    if (match && match[1]) {
+      return `https://unavatar.io/linkedin/${match[1]}?fallback=https://ui-avatars.com/api/?name=${encodeURIComponent((alumnus.first_name || '') + ' ' + (alumnus.last_name || ''))}&background=ea580c&color=ffffff&bold=true`;
+    }
+  }
+  const name = `${alumnus.first_name || ''} ${alumnus.last_name || ''}`.trim() || 'Alumni';
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ea580c&color=ffffff&bold=true`;
+}
+
 export interface AlumniPaginatedResponse {
   items: Alumni[];
   total: number;
@@ -74,7 +97,7 @@ export interface AlumniPaginatedResponse {
   pages: number;
 }
 
-export async function getAlumni(params: Record<string, string | number> = {}) {
+export async function getAlumni(params: Record<string, string | number | boolean> = {}) {
   const searchParams = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== "") {
@@ -87,6 +110,20 @@ export async function getAlumni(params: Record<string, string | number> = {}) {
 
 export async function getAlumniProfile(id: number) {
   return fetchApi<Alumni>(`/api/alumni/${id}`);
+}
+
+export async function updateAlumniProfile(id: number, data: Record<string, any>) {
+  return fetchApi<Alumni>(`/api/alumni/${id}/profile`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function claimAlumniProfile(id: number, data?: Record<string, any>) {
+  return fetchApi<Alumni>(`/api/alumni/${id}/claim`, {
+    method: 'POST',
+    body: JSON.stringify(data || {}),
+  });
 }
 
 // --- Announcements API ---

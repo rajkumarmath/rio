@@ -11,6 +11,9 @@ class AlumniCreateUpdate(BaseModel):
     location: Optional[str] = None
     bio: Optional[str] = None
     linkedin_url: Optional[str] = None
+    avatar_url: Optional[str] = None
+    is_claimed: Optional[bool] = False
+    is_mentor: Optional[bool] = False
     
     # Simple IDs for relationships for now
     department_id: Optional[int] = None
@@ -25,6 +28,9 @@ class AlumniAdminResponse(BaseModel):
     location: Optional[str] = None
     bio: Optional[str] = None
     linkedin_url: Optional[str] = None
+    avatar_url: Optional[str] = None
+    is_claimed: Optional[bool] = False
+    is_mentor: Optional[bool] = False
     
     department: Optional[DepartmentPublic] = None
     batch: Optional[GraduationBatchPublic] = None

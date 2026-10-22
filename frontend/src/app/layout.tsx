@@ -22,23 +22,30 @@ export default function RootLayout({
               <Image src="/logo.png" alt="University Logo" width={90} height={90} style={{ objectFit: 'contain' }} priority />
               REVA AlumniSphere
             </Link>
-            <nav className="flex gap-md">
+            <nav className="flex items-center gap-sm">
               <Link href="/alumni" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)' }}>Directory</Link>
               <Link href="/announcements" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)' }}>Announcements</Link>
               <Link href="/association" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)' }}>Association</Link>
+              <Link href="/claim-profile" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', color: 'var(--accent-color)', fontWeight: 600 }}>Claim Profile</Link>
+              <Link href="/signin" className="btn btn-accent" style={{ padding: '0.65rem 1.4rem' }}>Sign In</Link>
             </nav>
           </div>
         </header>
 
-        <main style={{ minHeight: 'calc(100vh - 100px - 100px)', padding: 'var(--spacing-md) 0' }}>
+        <main style={{ minHeight: 'calc(100vh - 100px - 140px)', padding: 'var(--spacing-md) 0' }}>
           {children}
         </main>
 
-        <footer style={{ padding: 'var(--spacing-md) 0', marginTop: 'auto' }}>
-          <div className="container flex flex-col items-center gap-sm text-center">
-            <p>&copy; 2026 REVA UNIVERSITY. All rights reserved.</p>
-            <p className="text-sm">Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bangalore, Karnataka, India, 560064</p>
-            <p className="text-sm mt-xs" style={{ color: 'var(--primary-light)' }}>A secure platform for our global alumni network.</p>
+        <footer style={{ padding: 'var(--spacing-md) 0', marginTop: 'auto', borderTop: '1px solid var(--border-color)' }}>
+          <div className="container flex flex-col items-center gap-xs text-center">
+            <div className="flex items-center gap-xs mb-xs">
+              <span className="badge-reva-navy">NAAC A+ ACCREDITED</span>
+              <span className="badge-mentor">35,000+ ALUMNI GLOBALLY</span>
+            </div>
+            <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>&copy; 2026 REVA UNIVERSITY &bull; REVA Alumni Association (RUAA)</p>
+            <p className="text-sm">Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bengaluru, Karnataka, India - 560064</p>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Chancellor: Dr. P. Shyama Raju &bull; Established under Govt. of Karnataka Act No. 13 of 2013</p>
+            <p className="text-sm mt-xs" style={{ color: 'var(--accent-color)', fontWeight: 500 }}>&ldquo;Knowledge is Power&rdquo; &mdash; Connecting Graduates Across 45+ Nations</p>
           </div>
         </footer>
       </body>

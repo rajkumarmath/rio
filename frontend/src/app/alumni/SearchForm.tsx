@@ -48,7 +48,20 @@ export default function SearchForm({ initial }: { initial: Record<string, any> }
       </div>
       <div>
         <label className="text-sm font-semibold mb-xs" style={{ display: 'block' }}>Location</label>
-        <input type="text" name="location" defaultValue={initial.location || ""} className="input-field" placeholder="E.g., New York" />
+        <input type="text" name="location" defaultValue={initial.location || ""} className="input-field" placeholder="E.g., Bengaluru" />
+      </div>
+
+      <div style={{ marginTop: '0.25rem' }}>
+        <label className="flex items-center gap-xs text-sm font-semibold" style={{ cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            name="is_mentor"
+            value="true"
+            defaultChecked={initial.is_mentor === "true" || initial.is_mentor === true}
+            style={{ width: '18px', height: '18px', accentColor: '#10b981', cursor: 'pointer' }}
+          />
+          <span>Open to Mentor Only</span>
+        </label>
       </div>
       
       <div className="flex flex-col gap-sm mt-md">

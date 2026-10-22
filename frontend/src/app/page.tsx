@@ -24,18 +24,68 @@ export default async function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section style={{ padding: 'var(--spacing-xl) 0', textAlign: 'center' }}>
+      <section style={{ padding: 'var(--spacing-lg) 0 var(--spacing-xl) 0', textAlign: 'center' }}>
         <div className="container flex flex-col items-center gap-md">
-          <div className="card" style={{ padding: 'var(--spacing-xl) var(--spacing-md)', borderRadius: 'var(--radius-lg)', width: '100%', maxWidth: '900px' }}>
-            <h1 style={{ fontSize: '3.5rem', marginBottom: 'var(--spacing-sm)' }}>Welcome to AlumniSphere</h1>
-            <p className="text-secondary" style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto' }}>
-              {mission}
+          <div className="card" style={{ padding: 'var(--spacing-xl) var(--spacing-md)', borderRadius: 'var(--radius-lg)', width: '100%', maxWidth: '960px' }}>
+            <div className="flex justify-center items-center gap-xs mb-sm" style={{ flexWrap: 'wrap' }}>
+              <span className="badge-reva-navy">REVA UNIVERSITY</span>
+              <span className="badge-mentor">NAAC A+ ACCREDITED</span>
+              <span className="tag">35,000+ ALUMNI WORLDWIDE</span>
+            </div>
+
+            <h1 style={{ fontSize: '3.2rem', marginBottom: 'var(--spacing-xs)', color: 'var(--primary-color)' }}>
+              Welcome to REVA AlumniSphere
+            </h1>
+            <p className="text-secondary" style={{ fontSize: '1.2rem', maxWidth: '680px', margin: '0 auto', lineHeight: 1.5 }}>
+              Connecting our global community of graduates from Rukmini Knowledge Park. Engage with verified mentors, discover career referrals, and elevate your network.
             </p>
-            <div className="flex justify-center gap-md mt-lg">
-              <Link href="/alumni" className="btn btn-accent">Explore Directory</Link>
-              <Link href="/association" className="btn btn-outline">Learn More</Link>
+
+            <div className="flex justify-center gap-md mt-lg" style={{ flexWrap: 'wrap' }}>
+              <Link href="/alumni" className="btn btn-accent" style={{ padding: '0.85rem 2rem', fontSize: '1.05rem' }}>
+                Explore Directory &rarr;
+              </Link>
+              <Link href="/claim-profile" className="btn btn-outline" style={{ padding: '0.85rem 2rem', color: 'var(--accent-color)', fontWeight: 600 }}>
+                ✨ Claim Your Profile
+              </Link>
+              <Link href="/alumni?is_mentor=true" className="btn btn-outline" style={{ padding: '0.85rem 2rem' }}>
+                🤝 Find a Mentor
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 4 Role Gateways - Admin, Alumni, Faculty, Student */}
+      <section className="container mb-lg">
+        <div className="text-center mb-md">
+          <h2 style={{ fontSize: '1.6rem' }}>Portal Gateways</h2>
+          <p className="text-secondary text-sm">Select your role to access tailored university services</p>
+        </div>
+
+        <div className="grid grid-cols-4 gap-md" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+          <Link href="/signin" className="card flex flex-col items-center text-center" style={{ padding: '1.75rem 1rem', cursor: 'pointer' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>👔</div>
+            <h3 style={{ fontSize: '1.15rem', color: 'var(--primary-color)' }}>Admin</h3>
+            <p className="text-secondary text-sm mt-xs">Data imports, user directory, announcements &amp; audit</p>
+          </Link>
+
+          <Link href="/claim-profile" className="card flex flex-col items-center text-center" style={{ padding: '1.75rem 1rem', cursor: 'pointer' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🎓</div>
+            <h3 style={{ fontSize: '1.15rem', color: 'var(--accent-color)' }}>Alumni</h3>
+            <p className="text-secondary text-sm mt-xs">Claim your record, sync LinkedIn DP, offer mentorship</p>
+          </Link>
+
+          <Link href="/signin" className="card flex flex-col items-center text-center" style={{ padding: '1.75rem 1rem', cursor: 'pointer' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>👨‍🏫</div>
+            <h3 style={{ fontSize: '1.15rem', color: '#2563eb' }}>Faculty</h3>
+            <p className="text-secondary text-sm mt-xs">Track departmental graduates, guest talks &amp; research</p>
+          </Link>
+
+          <Link href="/alumni?is_mentor=true" className="card flex flex-col items-center text-center" style={{ padding: '1.75rem 1rem', cursor: 'pointer' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🎒</div>
+            <h3 style={{ fontSize: '1.15rem', color: '#059669' }}>Student</h3>
+            <p className="text-secondary text-sm mt-xs">Direct outreach on LinkedIn/Gmail for mock interviews &amp; jobs</p>
+          </Link>
         </div>
       </section>
 

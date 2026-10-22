@@ -1,35 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Hi-Tech Neumorphic Theme with Cantaloupe */
-  --bg-color: #fff0e6;
-  --surface-color: #fff0e6;
+  /* Official REVA University Brand Theme */
+  --bg-color: #faf6f0;
+  --surface-color: #faf6f0;
   
-  --text-primary: #3d312a;
-  --text-secondary: #8c7b70;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
   
-  --primary-color: #2d241f; 
-  --primary-light: #8c7b70;
+  --primary-color: #0b1e36; /* REVA Official Deep Navy */
+  --primary-light: #183354;
   
-  --accent-color: #ff8c42; /* Cantaloupe */
-  --accent-hover: #e67530;
+  --accent-color: #ea580c; /* REVA Official Saffron Orange */
+  --accent-hover: #c2410c;
+  --accent-gold: #f59e0b;
   
-  --border-color: transparent;
+  --reva-navy: #0b1e36;
+  --reva-orange: #ea580c;
+  --reva-gold: #f59e0b;
   
-  /* Neumorphic Shadows for Cantaloupe */
+  --border-color: rgba(234, 88, 12, 0.15);
+  
+  /* Precision Neumorphic Shadows for REVA Surface */
   --shadow-light: #ffffff;
-  --shadow-dark: #d9c5b8;
+  --shadow-dark: #dfd7cc;
   
-  --neu-flat: 9px 9px 16px var(--shadow-dark), -9px -9px 16px var(--shadow-light);
-  --neu-flat-hover: 12px 12px 20px var(--shadow-dark), -12px -12px 20px var(--shadow-light);
+  --neu-flat: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  --neu-flat-hover: 12px 12px 22px var(--shadow-dark), -12px -12px 22px var(--shadow-light);
   
-  --neu-inset: inset 6px 6px 10px 0 var(--shadow-dark), inset -6px -6px 10px 0 var(--shadow-light);
-  --neu-inset-focus: inset 8px 8px 14px 0 var(--shadow-dark), inset -8px -8px 14px 0 var(--shadow-light);
+  --neu-inset: inset 5px 5px 10px 0 var(--shadow-dark), inset -5px -5px 10px 0 var(--shadow-light);
+  --neu-inset-focus: inset 7px 7px 12px 0 var(--shadow-dark), inset -7px -7px 12px 0 var(--shadow-light);
   
   --neu-pressed: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
   
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
   --radius-full: 50px;
   
   --spacing-xs: 0.5rem;
@@ -260,3 +265,58 @@ tbody tr {
 tbody tr:hover {
   transform: scale(1.01);
 }
+
+/* Circular Avatar Styles */
+.avatar-circle {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-color);
+  box-shadow: var(--neu-flat);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background-color: #fff;
+  flex-shrink: 0;
+}
+
+.avatar-circle:hover {
+  transform: scale(1.05);
+  box-shadow: var(--neu-flat-hover);
+}
+
+/* Mentorship & Status Badges */
+.badge-mentor {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.3rem 0.8rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.4px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.badge-claimed {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.25rem 0.65rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+.badge-reva-navy {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background: var(--reva-navy);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+

@@ -32,6 +32,9 @@ class AlumniPublic(BaseModel):
     last_name: str
     email: Optional[str] = None
     linkedin_url: Optional[str] = None
+    avatar_url: Optional[str] = None
+    is_claimed: Optional[bool] = False
+    is_mentor: Optional[bool] = False
     location: Optional[str] = None
     bio: Optional[str] = None
     
@@ -42,6 +45,18 @@ class AlumniPublic(BaseModel):
     employment_history: List[EmploymentHistoryPublic] = []
     education_history: List[EducationHistoryPublic] = []
     model_config = {"from_attributes": True}
+
+class AlumniProfileUpdate(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    phone: Optional[str] = None
+    location: Optional[str] = None
+    bio: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    avatar_url: Optional[str] = None
+    is_mentor: Optional[bool] = None
+    company: Optional[str] = None
+    title: Optional[str] = None
 
 class AlumniPaginatedResponse(BaseModel):
     items: List[AlumniPublic]

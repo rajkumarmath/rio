@@ -45,6 +45,9 @@ class AlumniProfile(Base):
     location = Column(String(100))
     bio = Column(Text)
     linkedin_url = Column(String(255))
+    avatar_url = Column(String(500))
+    is_claimed = Column(Boolean, default=False)
+    is_mentor = Column(Boolean, default=False)
     
     department_id = Column(Integer, ForeignKey("departments.id"))
     batch_id = Column(Integer, ForeignKey("graduation_batches.id"))
