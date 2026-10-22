@@ -117,3 +117,75 @@ def test_delete_alumni_authorized(client, test_alumni_data, db_session):
     
     # Verify deletion
     assert db_session.query(AlumniProfile).filter_by(id=target_id).first() is None
+
+def test_update_alumni_profile_unauthorized(test_alumni_data):
+    from fastapi.testclient import TestClient
+    from main import app
+    
+    old_overrides = app.dependency_overrides.copy()
+    app.dependency_overrides = {}
+    try:
+        with TestClient(app) as fresh_client:
+            target_id = test_alumni_data[0].id
+            response = fresh_client.put(
+                f"/api/alumni/{target_id}/profile",
+                json={"bio": "Hacked bio"}
+            )
+            assert response.status_code == 401
+    finally:
+        app.dependency_overrides = old_overrides
+
+def test_update_alumni_profile_forbidden_for_other_alumni(test_alumni_data):
+    from fastapi.testclient import TestClient
+    from main import app
+    from app.core.security import create_access_token
+    
+    old_overrides = app.dependency_overrides.copy()
+    app.dependency_overrides = {}
+    try:
+        with TestClient(app) as fresh_client:
+            # Token for Alumni 1 (Alice)
+            alice_id = test_alumni_data[0].id
+            bob_id = test_alumni_data[1].id
+            alice_token = create_access_token(subject=f"alumni:{alice_id}")
+            
+            # Alice tries to edit Bob's profile
+            response = fresh_client.put(
+                f"/api/alumni/{bob_id}/profile",
+                headers={"Authorization": f"Bearer {alice_token}"},
+                json={"bio": "Alice tampering with Bob"}
+            )
+            assert response.status_code == 403
+            assert "only authorized to modify your own" in response.json()["detail"]
+    finally:
+        app.dependency_overrides = old_overrides
+
+def test_update_alumni_profile_authorized_self(test_alumni_data, db_session):
+    from fastapi.testclient import TestClient
+    from main import app
+    from app.core.security import create_access_token
+    
+    old_overrides = app.dependency_overrides.copy()
+    app.dependency_overrides = {}
+    try:
+        with TestClient(app) as fresh_client:
+            alice_id = test_alumni_data[0].id
+            alice_token = create_access_token(subject=f"alumni:{alice_id}")
+            
+            response = fresh_client.put(
+                f"/api/alumni/{alice_id}/profile",
+                headers={"Authorization": f"Bearer {alice_token}"},
+                json={
+                    "bio": "Lead Architect at Top Tech",
+                    "location": "San Francisco, CA",
+                    "company": "NextGen AI",
+                    "title": "Principal Engineer"
+                }
+            )
+            assert response.status_code == 200
+            data = response.json()
+            assert data["location"] == "San Francisco, CA"
+            assert data["first_name"] == "Alice"
+    finally:
+        app.dependency_overrides = old_overrides
+

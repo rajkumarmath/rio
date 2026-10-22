@@ -7,8 +7,12 @@ const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:80
 const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, "");
 
 export async function login(prevState: any, formData: FormData) {
-  const username = formData.get("username") as string;
-  const password = formData.get("password") as string;
+  if (formData.get("_hp_security_check")) {
+    return { error: "Security check rejected." };
+  }
+
+  const username = (formData.get("username") as string || "").trim();
+  const password = (formData.get("password") as string || "").trim();
   
   if (!username || !password) {
     return { error: "Username and password required" };
@@ -25,7 +29,7 @@ export async function login(prevState: any, formData: FormData) {
     });
     
     if (!res.ok) {
-      return { error: "Invalid credentials" };
+      return { error: "Invalid administrator credentials" };
     }
     
     const data = await res.json();
@@ -55,12 +59,21 @@ export async function logout() {
 }
 
 export async function loginAlumni(prevState: any, formData: FormData) {
-  const email = (formData.get("email") as string) || "";
-  const password = (formData.get("password") as string) || "";
+  if (formData.get("_hp_security_check")) {
+    return { error: "Security check rejected." };
+  }
+
+  const email = ((formData.get("email") as string) || "").trim().toLowerCase();
+  const password = ((formData.get("password") as string) || "").trim();
   const redirectTo = (formData.get("redirect") as string) || "";
 
   if (!email || !password) {
     return { error: "Email and password are required" };
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return { error: "Please enter a valid university or personal email address." };
   }
 
   let alumniId: number | null = null;
@@ -131,6 +144,50 @@ export async function getAlumniSession() {
 export async function getAdminSession() {
   const cookieStore = await cookies();
   return Boolean(cookieStore.get("admin_token")?.value);
+}
+
+export async function updateAlumniProfileAction(alumniId: number, data: Record<string, any>) {
+  const cookieStore = await cookies();
+  const alumniSessionCookie = cookieStore.get("alumni_session")?.value;
+  const adminToken = cookieStore.get("admin_token")?.value;
+
+  let token: string | null = null;
+
+  if (adminToken) {
+    token = adminToken;
+  } else if (alumniSessionCookie) {
+    try {
+      const parsed = JSON.parse(alumniSessionCookie);
+      if (Number(parsed.alumni_id) === Number(alumniId) && parsed.token) {
+        token = parsed.token;
+      }
+    } catch {
+      // invalid cookie format
+    }
+  }
+
+  if (!token) {
+    return { error: "Unauthorized: You must be signed in with your designated alumni email or administrator credentials to update this profile." };
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/alumni/${alumniId}/profile`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    const resData = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      return { error: resData.detail || "Failed to update profile." };
+    }
+    return { success: true, data: resData };
+  } catch (err: any) {
+    return { error: "Network error during profile update." };
+  }
 }
 
 export async function deleteAlumniAction(id: number) {

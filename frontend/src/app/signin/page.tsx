@@ -21,21 +21,11 @@ export default function SignInPage() {
   const [studentSrn, setStudentSrn] = useState("");
   const [portalMessage, setPortalMessage] = useState<string | null>(null);
 
-  const fillDemoAdmin = () => {
-    setAdminUsername("admin");
-    setAdminPassword("AdminPass123!");
-  };
-
-  const fillDemoAlumni = () => {
-    setAlumniEmail("priya.sharma@reva.edu.in");
-    setAlumniPassword("RevaAlumni2026!");
-  };
-
   const handleRoleQuickDemo = (roleName: string, destination: string) => {
-    setPortalMessage(`Welcome! Authenticated as ${roleName}. Redirecting...`);
+    setPortalMessage(`Institutional verification complete for ${roleName}. Accessing directory...`);
     setTimeout(() => {
       window.location.href = destination;
-    }, 700);
+    }, 500);
   };
 
   return (
@@ -195,21 +185,11 @@ export default function SignInPage() {
         {/* ROLE 1: ADMIN LOGIN */}
         {role === "admin" && (
           <div>
-            <div className="flex justify-between items-center mb-md">
+            <div className="mb-md">
               <h2 style={{ fontSize: '1.25rem' }}>Administrator Sign In</h2>
-              <button
-                type="button"
-                onClick={fillDemoAdmin}
-                className="btn btn-outline"
-                style={{
-                  fontSize: '0.75rem',
-                  padding: '0.35rem 0.75rem',
-                  color: 'var(--accent-color)',
-                  borderColor: 'var(--accent-color)',
-                }}
-              >
-                Auto-Fill Demo Admin
-              </button>
+              <p className="text-secondary text-sm mt-xs">
+                Enter your administrative credentials to manage imports, users, and announcements.
+              </p>
             </div>
 
             {adminState?.error && (
@@ -228,14 +208,18 @@ export default function SignInPage() {
             )}
 
             <form action={adminFormAction} className="flex flex-col gap-md">
+              {/* Spam bot honeypot */}
+              <input type="text" name="_hp_security_check" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
               <div>
-                <label className="text-sm font-semibold mb-xs block">Admin Username</label>
+                <label className="text-sm font-semibold mb-xs block">Admin Username / Email</label>
                 <input
                   type="text"
                   name="username"
                   required
+                  autoComplete="username"
                   className="input-field"
-                  placeholder="e.g. admin"
+                  placeholder="Enter administrator username"
                   value={adminUsername}
                   onChange={(e) => setAdminUsername(e.target.value)}
                 />
@@ -247,8 +231,9 @@ export default function SignInPage() {
                   type="password"
                   name="password"
                   required
+                  autoComplete="current-password"
                   className="input-field"
-                  placeholder="••••••••••••"
+                  placeholder="Enter secure password"
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
                 />
@@ -260,12 +245,8 @@ export default function SignInPage() {
                 className="btn btn-accent mt-sm"
                 style={{ width: '100%', padding: '0.9rem' }}
               >
-                {isAdminPending ? "Authenticating..." : "Sign In to Admin Dashboard"}
+                {isAdminPending ? "Authenticating Administrator..." : "Sign In to Admin Dashboard"}
               </button>
-
-              <p className="text-secondary text-sm text-center mt-xs">
-                Credentials: <code>admin</code> / <code>AdminPass123!</code>
-              </p>
             </form>
           </div>
         )}
@@ -273,27 +254,11 @@ export default function SignInPage() {
         {/* ROLE 2: ALUMNI AUTHENTICATION */}
         {role === "alumni" && (
           <div>
-            <div className="flex justify-between items-center mb-md">
-              <div>
-                <h2 style={{ fontSize: '1.25rem' }}>Alumni Account Login</h2>
-                <p className="text-secondary text-sm mt-xs">
-                  Sign in with your registered email to edit your career profile and mentorship settings.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={fillDemoAlumni}
-                className="btn btn-outline"
-                style={{
-                  fontSize: '0.75rem',
-                  padding: '0.35rem 0.75rem',
-                  color: 'var(--accent-color)',
-                  borderColor: 'var(--accent-color)',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                Demo Alumnus Fill
-              </button>
+            <div className="mb-md">
+              <h2 style={{ fontSize: '1.25rem' }}>Alumni Account Login</h2>
+              <p className="text-secondary text-sm mt-xs">
+                Sign in with your registered email to edit your career profile and mentorship settings.
+              </p>
             </div>
 
             {alumniState?.error && (
@@ -312,14 +277,18 @@ export default function SignInPage() {
             )}
 
             <form action={alumniFormAction} className="flex flex-col gap-md">
+              {/* Spam bot honeypot */}
+              <input type="text" name="_hp_security_check" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
               <div>
                 <label className="text-sm font-semibold mb-xs block">Registered Alumni Email</label>
                 <input
                   type="email"
                   name="email"
                   required
+                  autoComplete="email"
                   className="input-field"
-                  placeholder="e.g. priya.sharma@reva.edu.in"
+                  placeholder="e.g. yourname@reva.edu.in"
                   value={alumniEmail}
                   onChange={(e) => setAlumniEmail(e.target.value)}
                 />
@@ -336,8 +305,9 @@ export default function SignInPage() {
                   type="password"
                   name="password"
                   required
+                  autoComplete="current-password"
                   className="input-field"
-                  placeholder="••••••••••••"
+                  placeholder="Enter your alumni password"
                   value={alumniPassword}
                   onChange={(e) => setAlumniPassword(e.target.value)}
                 />

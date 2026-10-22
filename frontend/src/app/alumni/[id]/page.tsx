@@ -85,7 +85,7 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
                   display: 'inline-flex',
                   alignItems: 'center',
                   padding: '0.6rem 1.2rem',
-                  borderRadius: 'var(--radius-full)',
+                  borderRadius: 'var(--radius-md)',
                   boxShadow: 'var(--neu-flat)',
                   color: '#EA4335',
                   fontWeight: 600,
@@ -109,7 +109,7 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
                 display: 'inline-flex',
                 alignItems: 'center',
                 padding: '0.6rem 1.2rem',
-                borderRadius: 'var(--radius-full)',
+                borderRadius: 'var(--radius-md)',
                 boxShadow: 'var(--neu-flat)',
                 color: '#0A66C2',
                 fontWeight: 600,
@@ -122,8 +122,8 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
               LinkedIn Profile
             </a>
 
-            {/* Only Owner or Admin can access edit; or Claim button if unclaimed */}
-            {isOwner ? (
+            {/* Only Authenticated Profile Owner or Admin can see and access Edit */}
+            {isOwner && (
               <Link
                 href={`/alumni/${profile.id}/edit`}
                 className="btn btn-outline flex items-center gap-xs"
@@ -131,8 +131,7 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
                   display: 'inline-flex',
                   alignItems: 'center',
                   padding: '0.6rem 1.2rem',
-                  borderRadius: 'var(--radius-full)',
-                  boxShadow: 'var(--neu-flat)',
+                  borderRadius: 'var(--radius-md)',
                   color: 'var(--accent-color)',
                   borderColor: 'var(--accent-color)',
                   fontWeight: 600,
@@ -145,31 +144,7 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
                 </svg>
                 Edit My Profile
               </Link>
-            ) : !profile.is_claimed ? (
-              <Link
-                href={`/alumni/${profile.id}/edit`}
-                className="btn btn-outline flex items-center gap-xs"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '0.6rem 1.2rem',
-                  borderRadius: 'var(--radius-full)',
-                  boxShadow: 'var(--neu-flat)',
-                  color: 'var(--accent-color)',
-                  borderColor: 'var(--accent-color)',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                }}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="8.5" cy="7" r="4"></circle>
-                  <line x1="20" y1="8" x2="20" y2="14"></line>
-                  <line x1="23" y1="11" x2="17" y2="11"></line>
-                </svg>
-                Claim Profile
-              </Link>
-            ) : null}
+            )}
           </div>
         </div>
 

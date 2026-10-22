@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getAlumniProfile, updateAlumniProfile, getAlumniAvatarUrl, Alumni } from "@/lib/api";
+import { getAlumniProfile, getAlumniAvatarUrl, Alumni } from "@/lib/api";
+import { updateAlumniProfileAction } from "@/app/actions";
 
 export default function EditProfileClient({ id }: { id: string }) {
   const router = useRouter();
@@ -73,7 +74,7 @@ export default function EditProfileClient({ id }: { id: string }) {
     setSuccessMessage(null);
 
     try {
-      await updateAlumniProfile(parseInt(id), {
+      const res = await updateAlumniProfileAction(parseInt(id), {
         first_name: firstName,
         last_name: lastName,
         phone,
@@ -86,7 +87,12 @@ export default function EditProfileClient({ id }: { id: string }) {
         title,
       });
 
-      setSuccessMessage("Profile updated successfully. Your circular LinkedIn avatar and career details are now live.");
+      if (res?.error) {
+        setError(res.error);
+        return;
+      }
+
+      setSuccessMessage("Profile updated successfully. Your career details and profile picture are now live.");
       setTimeout(() => {
         router.refresh();
       }, 500);

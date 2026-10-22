@@ -7,7 +7,7 @@ from typing import Optional
 from app.database import get_db
 from app.models import AlumniProfile, Department, GraduationBatch, EmploymentHistory
 from app.schemas.alumni import AlumniPaginatedResponse, AlumniPublic, AlumniProfileUpdate
-from app.api.deps import get_current_admin
+from app.api.deps import get_current_admin, verify_alumni_or_admin
 from app.models import AdministrativeUser
 
 router = APIRouter()
@@ -105,7 +105,8 @@ def delete_alumni_profile(
 def update_alumni_profile(
     alumni_id: int,
     data: AlumniProfileUpdate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    auth_user: dict = Depends(verify_alumni_or_admin)
 ):
     profile = db.query(AlumniProfile).filter(AlumniProfile.id == alumni_id).first()
     if not profile:
@@ -157,7 +158,8 @@ def update_alumni_profile(
 def claim_alumni_profile(
     alumni_id: int,
     data: Optional[AlumniProfileUpdate] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    auth_user: dict = Depends(verify_alumni_or_admin)
 ):
     profile = db.query(AlumniProfile).filter(AlumniProfile.id == alumni_id).first()
     if not profile:

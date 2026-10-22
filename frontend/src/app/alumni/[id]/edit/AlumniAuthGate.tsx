@@ -66,6 +66,7 @@ export default function AlumniAuthGate({
 
         <form action={formAction} className="flex flex-col gap-md">
           <input type="hidden" name="redirect" value={`/alumni/${id}/edit`} />
+          <input type="text" name="_hp_security_check" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
           <div>
             <label className="text-sm font-semibold mb-xs block">Registered Alumni Email</label>
