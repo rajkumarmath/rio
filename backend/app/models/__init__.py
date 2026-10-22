@@ -46,6 +46,7 @@ class AlumniProfile(Base):
     bio = Column(Text)
     linkedin_url = Column(String(255))
     avatar_url = Column(String(500))
+    password_hash = Column(String(255), nullable=True)
     is_claimed = Column(Boolean, default=False)
     is_mentor = Column(Boolean, default=False)
     

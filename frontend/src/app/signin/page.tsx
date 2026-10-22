@@ -2,19 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { login } from "@/app/actions";
+import { login, loginAlumni } from "@/app/actions";
 import { useActionState } from "react";
 
 type Role = "admin" | "alumni" | "faculty" | "student";
 
 export default function SignInPage() {
   const [role, setRole] = useState<Role>("admin");
-  const [state, formAction, isPending] = useActionState(login, null);
+  const [adminState, adminFormAction, isAdminPending] = useActionState(login, null);
+  const [alumniState, alumniFormAction, isAlumniPending] = useActionState(loginAlumni, null);
 
-  // Demo helpers
+  // Form states
   const [adminUsername, setAdminUsername] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [alumniEmail, setAlumniEmail] = useState("");
+  const [alumniPassword, setAlumniPassword] = useState("");
   const [facultyId, setFacultyId] = useState("");
   const [studentSrn, setStudentSrn] = useState("");
   const [portalMessage, setPortalMessage] = useState<string | null>(null);
@@ -24,21 +26,16 @@ export default function SignInPage() {
     setAdminPassword("AdminPass123!");
   };
 
-  const handleAlumniQuickAccess = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!alumniEmail) {
-      setPortalMessage("Please enter your registered alumni email address.");
-      return;
-    }
-    // Redirect to claim or search profile
-    window.location.href = `/claim-profile?email=${encodeURIComponent(alumniEmail)}`;
+  const fillDemoAlumni = () => {
+    setAlumniEmail("priya.sharma@reva.edu.in");
+    setAlumniPassword("RevaAlumni2026!");
   };
 
   const handleRoleQuickDemo = (roleName: string, destination: string) => {
-    setPortalMessage(`Welcome! Authenticated as ${roleName}. Redirecting to directory...`);
+    setPortalMessage(`Welcome! Authenticated as ${roleName}. Redirecting...`);
     setTimeout(() => {
       window.location.href = destination;
-    }, 900);
+    }, 700);
   };
 
   return (
@@ -46,16 +43,16 @@ export default function SignInPage() {
       <div className="card" style={{ padding: '2.5rem' }}>
         {/* Header */}
         <div className="text-center mb-lg">
-          <span className="badge-reva-navy mb-xs">REVA UNIVERSITY PORTAL</span>
+          <span className="badge-reva-navy mb-xs" style={{ display: 'inline-block' }}>REVA UNIVERSITY PORTAL</span>
           <h1 style={{ fontSize: '2.2rem', marginTop: '0.5rem', color: 'var(--primary-color)' }}>
             Sign In to AlumniSphere
           </h1>
           <p className="text-secondary text-sm mt-xs">
-            Select your role to access customized university resources and network tools.
+            Select your institutional affiliation to access authorized university tools and network resources.
           </p>
         </div>
 
-        {/* 4 Role Switcher Buttons */}
+        {/* 4 Professional Role Switcher Buttons with SVG icons */}
         <div
           style={{
             display: 'grid',
@@ -68,6 +65,7 @@ export default function SignInPage() {
             marginBottom: '2rem',
           }}
         >
+          {/* Admin Role Button */}
           <button
             type="button"
             onClick={() => { setRole("admin"); setPortalMessage(null); }}
@@ -81,17 +79,20 @@ export default function SignInPage() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '4px',
+              gap: '6px',
               transition: 'all 0.25s ease',
               background: role === "admin" ? 'var(--primary-color)' : 'transparent',
               color: role === "admin" ? '#ffffff' : 'var(--text-secondary)',
               boxShadow: role === "admin" ? '0 4px 12px rgba(11, 30, 54, 0.3)' : 'none',
             }}
           >
-            <span style={{ fontSize: '1.25rem' }}>👔</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
             <span>Admin</span>
           </button>
 
+          {/* Alumni Role Button */}
           <button
             type="button"
             onClick={() => { setRole("alumni"); setPortalMessage(null); }}
@@ -105,17 +106,21 @@ export default function SignInPage() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '4px',
+              gap: '6px',
               transition: 'all 0.25s ease',
               background: role === "alumni" ? 'var(--accent-color)' : 'transparent',
               color: role === "alumni" ? '#ffffff' : 'var(--text-secondary)',
               boxShadow: role === "alumni" ? '0 4px 12px rgba(234, 88, 12, 0.35)' : 'none',
             }}
           >
-            <span style={{ fontSize: '1.25rem' }}>🎓</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
             <span>Alumni</span>
           </button>
 
+          {/* Faculty Role Button */}
           <button
             type="button"
             onClick={() => { setRole("faculty"); setPortalMessage(null); }}
@@ -129,17 +134,21 @@ export default function SignInPage() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '4px',
+              gap: '6px',
               transition: 'all 0.25s ease',
               background: role === "faculty" ? '#2563eb' : 'transparent',
               color: role === "faculty" ? '#ffffff' : 'var(--text-secondary)',
               boxShadow: role === "faculty" ? '0 4px 12px rgba(37, 99, 235, 0.35)' : 'none',
             }}
           >
-            <span style={{ fontSize: '1.25rem' }}>👨‍🏫</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
             <span>Faculty</span>
           </button>
 
+          {/* Student Role Button */}
           <button
             type="button"
             onClick={() => { setRole("student"); setPortalMessage(null); }}
@@ -153,14 +162,17 @@ export default function SignInPage() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '4px',
+              gap: '6px',
               transition: 'all 0.25s ease',
               background: role === "student" ? '#059669' : 'transparent',
               color: role === "student" ? '#ffffff' : 'var(--text-secondary)',
               boxShadow: role === "student" ? '0 4px 12px rgba(5, 150, 105, 0.35)' : 'none',
             }}
           >
-            <span style={{ fontSize: '1.25rem' }}>🎒</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
             <span>Student</span>
           </button>
         </div>
@@ -191,7 +203,7 @@ export default function SignInPage() {
                 className="btn btn-outline"
                 style={{
                   fontSize: '0.75rem',
-                  padding: '0.4rem 0.8rem',
+                  padding: '0.35rem 0.75rem',
                   color: 'var(--accent-color)',
                   borderColor: 'var(--accent-color)',
                 }}
@@ -200,7 +212,7 @@ export default function SignInPage() {
               </button>
             </div>
 
-            {state?.error && (
+            {adminState?.error && (
               <div
                 className="mb-md text-sm text-center"
                 style={{
@@ -211,11 +223,11 @@ export default function SignInPage() {
                   fontWeight: 500,
                 }}
               >
-                {state.error}
+                {adminState.error}
               </div>
             )}
 
-            <form action={formAction} className="flex flex-col gap-md">
+            <form action={adminFormAction} className="flex flex-col gap-md">
               <div>
                 <label className="text-sm font-semibold mb-xs block">Admin Username</label>
                 <input
@@ -244,11 +256,11 @@ export default function SignInPage() {
 
               <button
                 type="submit"
-                disabled={isPending}
+                disabled={isAdminPending}
                 className="btn btn-accent mt-sm"
                 style={{ width: '100%', padding: '0.9rem' }}
               >
-                {isPending ? "Authenticating..." : "Sign In to Admin Dashboard"}
+                {isAdminPending ? "Authenticating..." : "Sign In to Admin Dashboard"}
               </button>
 
               <p className="text-secondary text-sm text-center mt-xs">
@@ -258,21 +270,53 @@ export default function SignInPage() {
           </div>
         )}
 
-        {/* ROLE 2: ALUMNI PORTAL */}
+        {/* ROLE 2: ALUMNI AUTHENTICATION */}
         {role === "alumni" && (
           <div>
-            <div className="mb-md">
-              <h2 style={{ fontSize: '1.25rem' }}>Alumni Gateway</h2>
-              <p className="text-secondary text-sm mt-xs">
-                Update your professional profile, display your LinkedIn DP, or claim your pre-loaded graduation record.
-              </p>
+            <div className="flex justify-between items-center mb-md">
+              <div>
+                <h2 style={{ fontSize: '1.25rem' }}>Alumni Account Login</h2>
+                <p className="text-secondary text-sm mt-xs">
+                  Sign in with your registered email to edit your career profile and mentorship settings.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={fillDemoAlumni}
+                className="btn btn-outline"
+                style={{
+                  fontSize: '0.75rem',
+                  padding: '0.35rem 0.75rem',
+                  color: 'var(--accent-color)',
+                  borderColor: 'var(--accent-color)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Demo Alumnus Fill
+              </button>
             </div>
 
-            <form onSubmit={handleAlumniQuickAccess} className="flex flex-col gap-md">
+            {alumniState?.error && (
+              <div
+                className="mb-md text-sm text-center"
+                style={{
+                  padding: '0.75rem',
+                  borderRadius: 'var(--radius-md)',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  color: '#dc2626',
+                  fontWeight: 500,
+                }}
+              >
+                {alumniState.error}
+              </div>
+            )}
+
+            <form action={alumniFormAction} className="flex flex-col gap-md">
               <div>
-                <label className="text-sm font-semibold mb-xs block">Your Registered Email</label>
+                <label className="text-sm font-semibold mb-xs block">Registered Alumni Email</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   className="input-field"
                   placeholder="e.g. priya.sharma@reva.edu.in"
@@ -281,19 +325,36 @@ export default function SignInPage() {
                 />
               </div>
 
-              <div className="flex gap-sm">
-                <button
-                  type="submit"
-                  className="btn btn-accent"
-                  style={{ flex: 1, padding: '0.85rem' }}
-                >
-                  Find &amp; Update My Profile
-                </button>
+              <div>
+                <div className="flex justify-between items-center mb-xs">
+                  <label className="text-sm font-semibold block">Password</label>
+                  <span className="text-xs text-secondary">
+                    First time? Enter any new password to activate
+                  </span>
+                </div>
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  className="input-field"
+                  placeholder="••••••••••••"
+                  value={alumniPassword}
+                  onChange={(e) => setAlumniPassword(e.target.value)}
+                />
               </div>
+
+              <button
+                type="submit"
+                disabled={isAlumniPending}
+                className="btn btn-accent mt-xs"
+                style={{ width: '100%', padding: '0.9rem' }}
+              >
+                {isAlumniPending ? "Verifying Credentials..." : "Sign In & Access Profile"}
+              </button>
 
               <div
                 style={{
-                  margin: '1rem 0',
+                  margin: '1.25rem 0 0.5rem 0',
                   textAlign: 'center',
                   borderTop: '1px solid var(--border-color)',
                   position: 'relative',
@@ -306,10 +367,10 @@ export default function SignInPage() {
                     background: 'var(--surface-color)',
                     padding: '0 1rem',
                     color: 'var(--text-secondary)',
-                    fontSize: '0.85rem',
+                    fontSize: '0.8rem',
                   }}
                 >
-                  OR FIRST TIME HERE?
+                  NEW GRADUATE?
                 </span>
               </div>
 
@@ -325,7 +386,7 @@ export default function SignInPage() {
                   boxShadow: 'var(--neu-flat)',
                 }}
               >
-                ✨ Claim Your Alumni Profile (Search by Name)
+                Claim Pre-Imported Profile Record &rarr;
               </Link>
             </form>
           </div>
@@ -337,7 +398,7 @@ export default function SignInPage() {
             <div className="mb-md">
               <h2 style={{ fontSize: '1.25rem' }}>Faculty &amp; Mentor Access</h2>
               <p className="text-secondary text-sm mt-xs">
-                Connect with graduates from your department, arrange technical talks, and mentor current students.
+                Connect with graduates from your school, invite guest speakers, and foster industry collaborations.
               </p>
             </div>
 
@@ -354,7 +415,7 @@ export default function SignInPage() {
               </div>
 
               <div>
-                <label className="text-sm font-semibold mb-xs block">Department</label>
+                <label className="text-sm font-semibold mb-xs block">School / Department</label>
                 <select className="input-field" style={{ cursor: 'pointer' }}>
                   <option>School of Computer Science &amp; Engineering</option>
                   <option>School of Electronics &amp; Communication Engineering</option>
@@ -387,7 +448,7 @@ export default function SignInPage() {
             <div className="mb-md">
               <h2 style={{ fontSize: '1.25rem' }}>Student Gateway</h2>
               <p className="text-secondary text-sm mt-xs">
-                Reach out directly to alumni on LinkedIn and Gmail for mentorship, referral requests, and internship opportunities.
+                Directly contact alumni for placement mentorship, resume guidance, and referral opportunities.
               </p>
             </div>
 
@@ -405,7 +466,7 @@ export default function SignInPage() {
 
               <button
                 type="button"
-                onClick={() => handleRoleQuickDemo("Student", "/alumni?is_mentor=true")}
+                onClick={() => handleRoleQuickDemo("Student", "/mentorship")}
                 className="btn btn-accent mt-xs"
                 style={{
                   width: '100%',
@@ -414,17 +475,8 @@ export default function SignInPage() {
                   boxShadow: '0 4px 12px rgba(5, 150, 105, 0.4)',
                 }}
               >
-                Find Alumni Mentors &amp; Open Roles &rarr;
+                Explore Mentorship Hub &amp; Open Roles &rarr;
               </button>
-
-              <div className="card" style={{ padding: '1rem', background: 'var(--bg-color)', marginTop: '0.5rem' }}>
-                <div className="text-sm font-semibold mb-xs" style={{ color: '#047857' }}>
-                  💡 Student Tip:
-                </div>
-                <p className="text-secondary text-sm">
-                  Alumni with the <span className="badge-mentor" style={{ transform: 'scale(0.85)', display: 'inline-block' }}>MENTOR</span> badge have volunteered to review student resumes and guide placement preparation.
-                </p>
-              </div>
             </div>
           </div>
         )}

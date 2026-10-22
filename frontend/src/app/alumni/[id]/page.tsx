@@ -1,4 +1,5 @@
 import { getAlumniProfile, Alumni, getAlumniAvatarUrl } from "@/lib/api";
+import { getAlumniSession, getAdminSession } from "@/app/actions";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -7,9 +8,10 @@ export const instant = false;
 export default async function AlumniProfilePage({ params }: { params: Promise<{ id: string }> }) {
   let profile: Alumni | null = null;
   const { id } = await params;
+  const numId = parseInt(id);
   
   try {
-    profile = await getAlumniProfile(parseInt(id));
+    profile = await getAlumniProfile(numId);
   } catch (err: any) {
     if (err.status === 404) {
       notFound();
@@ -21,10 +23,16 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
   }
 
   const avatarUrl = getAlumniAvatarUrl(profile);
+  const alumniSession = await getAlumniSession();
+  const isAdmin = await getAdminSession();
+  const isOwner = isAdmin || (alumniSession && alumniSession.alumni_id === numId);
 
   return (
     <div className="container py-lg">
-      <Link href="/alumni" className="text-sm font-semibold mb-lg" style={{ display: 'inline-block' }}>&larr; Back to Directory</Link>
+      <Link href="/alumni" className="text-sm font-semibold mb-lg" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Back to Directory
+      </Link>
       
       <div className="card mt-md">
         <div className="flex justify-between items-center mb-md" style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1.5rem', flexWrap: 'wrap', gap: '1.25rem' }}>
@@ -64,7 +72,7 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
             </div>
           </div>
 
-          {/* Action Buttons: Gmail, LinkedIn, Claim/Edit Profile */}
+          {/* Action Buttons: Gmail, LinkedIn, and Authenticated Edit Button */}
           <div className="flex items-center gap-sm" style={{ flexWrap: 'wrap' }}>
             {profile.email && (
               <a
@@ -114,24 +122,54 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
               LinkedIn Profile
             </a>
 
-            <Link
-              href={`/alumni/${profile.id}/edit${profile.is_claimed ? '' : '?claimed=1'}`}
-              className="btn btn-outline flex items-center gap-xs"
-              title={profile.is_claimed ? "Edit your profile data" : "Claim this alumni profile"}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '0.6rem 1.2rem',
-                borderRadius: 'var(--radius-full)',
-                boxShadow: 'var(--neu-flat)',
-                color: 'var(--accent-color)',
-                borderColor: 'var(--accent-color)',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-              }}
-            >
-              {profile.is_claimed ? "✏️ Edit Profile" : "✨ Claim Profile"}
-            </Link>
+            {/* Only Owner or Admin can access edit; or Claim button if unclaimed */}
+            {isOwner ? (
+              <Link
+                href={`/alumni/${profile.id}/edit`}
+                className="btn btn-outline flex items-center gap-xs"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '0.6rem 1.2rem',
+                  borderRadius: 'var(--radius-full)',
+                  boxShadow: 'var(--neu-flat)',
+                  color: 'var(--accent-color)',
+                  borderColor: 'var(--accent-color)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                Edit My Profile
+              </Link>
+            ) : !profile.is_claimed ? (
+              <Link
+                href={`/alumni/${profile.id}/edit`}
+                className="btn btn-outline flex items-center gap-xs"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '0.6rem 1.2rem',
+                  borderRadius: 'var(--radius-full)',
+                  boxShadow: 'var(--neu-flat)',
+                  color: 'var(--accent-color)',
+                  borderColor: 'var(--accent-color)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="8.5" cy="7" r="4"></circle>
+                  <line x1="20" y1="8" x2="20" y2="14"></line>
+                  <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                Claim Profile
+              </Link>
+            ) : null}
           </div>
         </div>
 

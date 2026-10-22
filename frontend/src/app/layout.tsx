@@ -22,12 +22,13 @@ export default function RootLayout({
               <Image src="/logo.png" alt="University Logo" width={90} height={90} style={{ objectFit: 'contain' }} priority />
               REVA AlumniSphere
             </Link>
-            <nav className="flex items-center gap-sm">
-              <Link href="/alumni" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)' }}>Directory</Link>
-              <Link href="/announcements" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)' }}>Announcements</Link>
-              <Link href="/association" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)' }}>Association</Link>
-              <Link href="/claim-profile" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', color: 'var(--accent-color)', fontWeight: 600 }}>Claim Profile</Link>
-              <Link href="/signin" className="btn btn-accent" style={{ padding: '0.65rem 1.4rem' }}>Sign In</Link>
+            <nav className="flex items-center gap-xs" style={{ flexWrap: 'wrap' }}>
+              <Link href="/alumni" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', padding: '0.5rem 1rem', fontSize: '0.88rem' }}>Directory</Link>
+              <Link href="/mentorship" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', padding: '0.5rem 1rem', fontSize: '0.88rem' }}>Mentorship</Link>
+              <Link href="/achievers" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', padding: '0.5rem 1rem', fontSize: '0.88rem' }}>Achievers</Link>
+              <Link href="/opportunities" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', padding: '0.5rem 1rem', fontSize: '0.88rem' }}>Opportunities</Link>
+              <Link href="/services" className="btn btn-outline" style={{ border: 'none', boxShadow: 'var(--neu-flat)', padding: '0.5rem 1rem', fontSize: '0.88rem' }}>Services</Link>
+              <Link href="/signin" className="btn btn-accent" style={{ padding: '0.55rem 1.3rem', fontSize: '0.88rem' }}>Sign In</Link>
             </nav>
           </div>
         </header>

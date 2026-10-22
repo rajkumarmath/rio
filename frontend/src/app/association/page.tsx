@@ -1,4 +1,5 @@
 import { getAssociationInfo } from "@/lib/api";
+import Image from "next/image";
 
 export const instant = false;
 
@@ -15,11 +16,38 @@ export default async function AssociationPage() {
   return (
     <div>
       <section style={{ padding: 'var(--spacing-lg) 0' }}>
-        <div className="container card" style={{ marginBottom: 'var(--spacing-md)' }}>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Association Info</h1>
-          <p className="text-secondary" style={{ fontSize: '1.2rem', maxWidth: '800px' }}>
-            {info?.mission || "Fostering lifelong connections."}
-          </p>
+        <div className="container card" style={{ marginBottom: 'var(--spacing-md)', padding: 0, overflow: 'hidden' }}>
+          <div style={{ position: 'relative', height: '320px', width: '100%' }}>
+            <Image
+              src="/reva_convocation.jpg"
+              alt="REVA Alumni Association Grand Reunion"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, rgba(11, 30, 54, 0.95) 0%, rgba(11, 30, 54, 0.4) 60%, transparent 100%)',
+                padding: '2.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                color: '#ffffff',
+              }}
+            >
+              <span className="badge-mentor" style={{ marginBottom: '0.5rem', alignSelf: 'flex-start' }}>
+                REVA ALUMNI ASSOCIATION (RUAA)
+              </span>
+              <h1 style={{ fontSize: '2.4rem', color: '#ffffff', margin: '0.25rem 0' }}>
+                Fostering Lifelong Global Connections
+              </h1>
+              <p style={{ color: '#e2e8f0', maxWidth: '750px', fontSize: '1rem', lineHeight: 1.5 }}>
+                {info?.mission || "Connecting graduates worldwide, supporting student scholarships, and championing alma mater pride across 45+ nations."}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

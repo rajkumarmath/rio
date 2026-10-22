@@ -156,13 +156,17 @@ export default function ClaimProfileClient() {
                       </p>
 
                       {currEmp && (
-                        <p className="text-sm font-semibold mt-xs" style={{ color: 'var(--primary-color)' }}>
-                          💼 {currEmp.title} at {currEmp.company}
-                        </p>
+                        <div className="flex items-center gap-xs text-sm font-semibold mt-xs" style={{ color: 'var(--primary-color)' }}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                          <span>{currEmp.title} at {currEmp.company}</span>
+                        </div>
                       )}
 
                       {alumnus.location && (
-                        <p className="text-secondary text-sm">📍 {alumnus.location}</p>
+                        <div className="flex items-center gap-xs text-secondary text-sm mt-xs">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                          <span>{alumnus.location}</span>
+                        </div>
                       )}
                     </div>
                   </div>

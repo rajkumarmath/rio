@@ -38,8 +38,9 @@ export default async function AlumniDirectory({
             Connect directly with verified REVA graduates worldwide via LinkedIn &amp; Gmail.
           </p>
         </div>
-        <Link href="/claim-profile" className="btn btn-outline" style={{ color: 'var(--accent-color)', fontWeight: 600 }}>
-          ✨ Not Listed or Unclaimed? Claim Profile
+        <Link href="/claim-profile" className="btn btn-outline flex items-center gap-xs" style={{ color: 'var(--accent-color)', fontWeight: 600 }}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+          Claim Unlisted Profile
         </Link>
       </div>
       

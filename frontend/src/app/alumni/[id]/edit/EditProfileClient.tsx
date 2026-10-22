@@ -15,7 +15,7 @@ export default function EditProfileClient({ id }: { id: string }) {
   const [profile, setProfile] = useState<Alumni | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(
-    isClaimedFlow ? "🎉 Profile verified! Complete your details below to finalize your public alumni card." : null
+    isClaimedFlow ? "Profile ownership verified. Complete your details below to update your public alumni card." : null
   );
 
   // Form states
@@ -86,7 +86,7 @@ export default function EditProfileClient({ id }: { id: string }) {
         title,
       });
 
-      setSuccessMessage("✅ Profile updated successfully! Your circular LinkedIn avatar and career information are now live.");
+      setSuccessMessage("Profile updated successfully. Your circular LinkedIn avatar and career details are now live.");
       setTimeout(() => {
         router.refresh();
       }, 500);

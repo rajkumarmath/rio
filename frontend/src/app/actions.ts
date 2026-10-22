@@ -54,6 +54,85 @@ export async function logout() {
   redirect("/admin/login");
 }
 
+export async function loginAlumni(prevState: any, formData: FormData) {
+  const email = (formData.get("email") as string) || "";
+  const password = (formData.get("password") as string) || "";
+  const redirectTo = (formData.get("redirect") as string) || "";
+
+  if (!email || !password) {
+    return { error: "Email and password are required" };
+  }
+
+  let alumniId: number | null = null;
+  let targetUrl = "/alumni";
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/alumni/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      return { error: errData.detail || "Authentication failed. Please verify your registered email and password." };
+    }
+
+    const data = await res.json();
+    alumniId = data.alumni_id;
+
+    const cookieStore = await cookies();
+    cookieStore.set("alumni_session", JSON.stringify({
+      alumni_id: data.alumni_id,
+      email: data.email,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      token: data.access_token,
+    }), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    if (redirectTo) {
+      targetUrl = redirectTo;
+    } else {
+      targetUrl = `/alumni/${data.alumni_id}/edit`;
+    }
+  } catch (err: any) {
+    if (err?.message?.includes("NEXT_REDIRECT")) throw err;
+    return { error: "Network error during alumni authentication." };
+  }
+
+  if (targetUrl) {
+    redirect(targetUrl);
+  }
+}
+
+export async function logoutAlumni() {
+  const cookieStore = await cookies();
+  cookieStore.delete("alumni_session");
+  redirect("/signin");
+}
+
+export async function getAlumniSession() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("alumni_session")?.value;
+  if (!sessionCookie) return null;
+  try {
+    return JSON.parse(sessionCookie);
+  } catch {
+    return null;
+  }
+}
+
+export async function getAdminSession() {
+  const cookieStore = await cookies();
+  return Boolean(cookieStore.get("admin_token")?.value);
+}
+
 export async function deleteAlumniAction(id: number) {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_token")?.value;
