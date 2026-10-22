@@ -52,7 +52,7 @@ export default async function AnnouncementsPage({
                 <p className="text-secondary mb-md" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {ann.content}
                 </p>
-                <Link href={`/announcements/${ann.id}`} className="text-sm font-semibold">Read Full Announcement &rarr;</Link>
+                <Link href={`/announcements/${ann.id}`} className="text-sm font-semibold">Read Full Announcement →</Link>
               </div>
             ))}
           </div>

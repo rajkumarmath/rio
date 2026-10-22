@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="mt-lg pt-md" style={{ borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <Link href="/terms" className="text-sm font-semibold">
-            Read Terms &amp; Conditions &rarr;
+            Read Terms &amp; Conditions →
           </Link>
           <Link href="/alumni" className="btn btn-accent" style={{ padding: '0.65rem 1.5rem', fontSize: '0.9rem' }}>
             Return to Alumni Directory

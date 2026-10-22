@@ -123,7 +123,7 @@ export default function EditProfileClient({ id }: { id: string }) {
     <div className="container py-lg" style={{ maxWidth: '820px', margin: '0 auto' }}>
       <div className="flex justify-between items-center mb-md">
         <Link href={`/alumni/${id}`} className="text-sm font-semibold">
-          &larr; View Public Profile
+          ← View Public Profile
         </Link>
         <span className="badge-reva-navy">REVA ALUMNI SPHERE</span>
       </div>
@@ -398,7 +398,7 @@ export default function EditProfileClient({ id }: { id: string }) {
               className="btn btn-accent"
               style={{ padding: '0.8rem 2.5rem', fontSize: '1rem' }}
             >
-              {saving ? "Saving Changes..." : "Save Profile Changes &rarr;"}
+              {saving ? "Saving Changes..." : "Save Profile Changes"}
             </button>
           </div>
         </form>

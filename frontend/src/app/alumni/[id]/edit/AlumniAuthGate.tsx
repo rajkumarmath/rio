@@ -108,7 +108,7 @@ export default function AlumniAuthGate({
 
         <div className="flex justify-between items-center mt-lg pt-md" style={{ borderTop: '1px solid var(--border-color)' }}>
           <Link href={`/alumni/${id}`} className="text-sm font-semibold text-secondary">
-            &larr; Return to Public Profile
+            ← Return to Public Profile
           </Link>
 
           <Link href="/signin" className="text-sm font-semibold" style={{ color: 'var(--accent-color)' }}>

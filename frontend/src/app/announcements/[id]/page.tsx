@@ -22,7 +22,7 @@ export default async function AnnouncementDetailPage({ params }: { params: Promi
 
   return (
     <div className="container py-lg">
-      <Link href="/announcements" className="text-sm font-semibold mb-lg" style={{ display: 'inline-block' }}>&larr; Back to Announcements</Link>
+      <Link href="/announcements" className="text-sm font-semibold mb-lg" style={{ display: 'inline-block' }}>← Back to Announcements</Link>
       
       <div className="card mt-md" style={{ padding: 'var(--spacing-lg)' }}>
         <h1 className="mb-sm" style={{ fontSize: '2.5rem' }}>{ann.title}</h1>

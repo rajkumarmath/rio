@@ -24,8 +24,14 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
 
   const avatarUrl = getAlumniAvatarUrl(profile);
   const alumniSession = await getAlumniSession();
-  const isAdmin = await getAdminSession();
-  const isOwner = isAdmin || (alumniSession && alumniSession.alumni_id === numId);
+
+  // "Edit My Profile" is strictly visible ONLY to the real alumni who has claimed this profile
+  // and is currently signed in. Public users, students, and admins (who edit via admin panel) NEVER see it.
+  const isClaimedAlumniOwner = Boolean(
+    profile.is_claimed &&
+    alumniSession &&
+    Number(alumniSession.alumni_id) === numId
+  );
 
   return (
     <div className="container py-lg">
@@ -122,8 +128,8 @@ export default async function AlumniProfilePage({ params }: { params: Promise<{ 
               LinkedIn Profile
             </a>
 
-            {/* Only Authenticated Profile Owner or Admin can see and access Edit */}
-            {isOwner && (
+            {/* Only the Real Alumni who has claimed this profile can see and access Edit */}
+            {isClaimedAlumniOwner && (
               <Link
                 href={`/alumni/${profile.id}/edit`}
                 className="btn btn-outline flex items-center gap-xs"

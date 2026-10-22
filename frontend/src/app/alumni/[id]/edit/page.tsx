@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAlumniProfile } from "@/lib/api";
 import { getAlumniSession, getAdminSession } from "@/app/actions";
 import EditProfileClient from "./EditProfileClient";
@@ -29,7 +29,17 @@ export default async function EditAlumniProfilePage({
   const alumniSession = await getAlumniSession();
   const isAdmin = await getAdminSession();
 
-  const isAuthorized = isAdmin || (alumniSession && alumniSession.alumni_id === numId);
+  // Administrators edit alumni exclusively through the Admin Panel
+  if (isAdmin) {
+    redirect(`/admin/alumni/${numId}/edit`);
+  }
+
+  // Only the real alumni who has claimed their profile can access the editor
+  const isAuthorizedAlumnus = Boolean(
+    profile.is_claimed &&
+    alumniSession &&
+    Number(alumniSession.alumni_id) === numId
+  );
 
   return (
     <Suspense
@@ -39,7 +49,7 @@ export default async function EditAlumniProfilePage({
         </div>
       }
     >
-      {isAuthorized ? (
+      {isAuthorizedAlumnus ? (
         <EditProfileClient id={id} />
       ) : (
         <AlumniAuthGate

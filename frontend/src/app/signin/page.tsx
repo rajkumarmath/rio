@@ -356,7 +356,7 @@ export default function SignInPage() {
                   boxShadow: 'var(--neu-flat)',
                 }}
               >
-                Claim Pre-Imported Profile Record &rarr;
+                Claim Pre-Imported Profile Record →
               </Link>
             </form>
           </div>
@@ -406,7 +406,7 @@ export default function SignInPage() {
                   boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)',
                 }}
               >
-                Access Department Alumni Network &rarr;
+                Access Department Alumni Network →
               </button>
             </div>
           </div>
@@ -445,7 +445,7 @@ export default function SignInPage() {
                   boxShadow: '0 4px 12px rgba(5, 150, 105, 0.4)',
                 }}
               >
-                Explore Mentorship Hub &amp; Open Roles &rarr;
+                Explore Mentorship Hub &amp; Open Roles →
               </button>
             </div>
           </div>

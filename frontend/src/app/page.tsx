@@ -43,7 +43,7 @@ export default async function Home() {
 
             <div className="flex justify-center gap-md mt-lg" style={{ flexWrap: 'wrap' }}>
               <Link href="/alumni" className="btn btn-accent" style={{ padding: '0.85rem 2rem', fontSize: '1.05rem' }}>
-                Explore Directory &rarr;
+                Explore Directory →
               </Link>
               <Link href="/claim-profile" className="btn btn-outline" style={{ padding: '0.85rem 2rem', color: 'var(--accent-color)', fontWeight: 600 }}>
                 Claim Your Profile
@@ -222,7 +222,7 @@ export default async function Home() {
                 Learn More About RUAA
               </Link>
               <Link href="/achievers" className="btn btn-accent" style={{ fontSize: '0.9rem' }}>
-                View Hall of Fame &rarr;
+                View Hall of Fame →
               </Link>
             </div>
           </div>
@@ -233,7 +233,7 @@ export default async function Home() {
       <section className="container py-lg">
         <div className="flex justify-between items-center mb-md">
           <h2>Latest University Updates</h2>
-          <Link href="/announcements" className="text-sm font-semibold" style={{ color: 'var(--accent-color)' }}>View All &rarr;</Link>
+          <Link href="/announcements" className="text-sm font-semibold" style={{ color: 'var(--accent-color)' }}>View All →</Link>
         </div>
         
         {recentAnnouncements.length === 0 ? (
@@ -250,7 +250,7 @@ export default async function Home() {
                     {announcement.content}
                   </p>
                 </div>
-                <Link href={`/announcements/${announcement.id}`} className="text-sm font-semibold" style={{ color: 'var(--accent-color)' }}>Read More &rarr;</Link>
+                <Link href={`/announcements/${announcement.id}`} className="text-sm font-semibold" style={{ color: 'var(--accent-color)' }}>Read More →</Link>
               </div>
             ))}
           </div>

@@ -97,7 +97,7 @@ export default function TermsPage() {
 
         <div className="mt-lg pt-md" style={{ borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <Link href="/privacy" className="text-sm font-semibold">
-            &larr; View Privacy Policy
+            ← View Privacy Policy
           </Link>
           <Link href="/signin" className="btn btn-accent" style={{ padding: '0.65rem 1.5rem', fontSize: '0.9rem' }}>
             Proceed to Sign In

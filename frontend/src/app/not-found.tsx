@@ -16,10 +16,10 @@ export default function NotFound() {
 
         <div className="flex justify-center gap-sm" style={{ flexWrap: 'wrap' }}>
           <Link href="/" className="btn btn-outline" style={{ padding: '0.75rem 1.75rem' }}>
-            &larr; Return to Home
+            ← Return to Home
           </Link>
           <Link href="/alumni" className="btn btn-accent" style={{ padding: '0.75rem 2rem' }}>
-            Browse Directory &rarr;
+            Browse Directory →
           </Link>
           <Link href="/mentorship" className="btn btn-outline" style={{ padding: '0.75rem 1.75rem' }}>
             Mentorship Hub

@@ -180,13 +180,23 @@ export default function ClaimProfileClient() {
                       View Public Card
                     </Link>
 
-                    <Link
-                      href={`/alumni/${alumnus.id}/edit?claimed=1`}
-                      className="btn btn-accent"
-                      style={{ padding: '0.6rem 1.4rem', fontSize: '0.88rem' }}
-                    >
-                      {alumnus.is_claimed ? "Edit / Update Profile &rarr;" : "Claim & Update Profile &rarr;"}
-                    </Link>
+                    {alumnus.is_claimed ? (
+                      <Link
+                        href={`/signin`}
+                        className="btn btn-outline"
+                        style={{ padding: '0.6rem 1.2rem', fontSize: '0.88rem', color: 'var(--primary-color)' }}
+                      >
+                        Claimed (Sign In)
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`/alumni/${alumnus.id}/edit?claimed=1`}
+                        className="btn btn-accent"
+                        style={{ padding: '0.6rem 1.4rem', fontSize: '0.88rem' }}
+                      >
+                        Claim Profile
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

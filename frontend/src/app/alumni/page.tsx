@@ -165,7 +165,7 @@ export default async function AlumniDirectory({
                         ) : <span />}
 
                         <Link href={`/alumni/${alumnus.id}`} className="font-semibold text-sm" style={{ color: 'var(--accent-color)' }}>
-                          View Profile &rarr;
+                          View Profile →
                         </Link>
                       </div>
                     </div>

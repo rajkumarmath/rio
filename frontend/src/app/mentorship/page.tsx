@@ -65,7 +65,7 @@ export default async function MentorshipHubPage() {
             <p className="text-secondary text-sm">Graduates open to guiding current students and recent graduates</p>
           </div>
           <Link href="/alumni?is_mentor=true" className="text-sm font-semibold" style={{ color: 'var(--accent-color)' }}>
-            View Full Filtered Directory &rarr;
+            View Full Filtered Directory →
           </Link>
         </div>
 
@@ -176,7 +176,7 @@ export default async function MentorshipHubPage() {
                   <div className="mt-md pt-xs flex justify-between items-center text-sm">
                     <span className="text-secondary">Free 1-on-1 Guidance</span>
                     <Link href={`/alumni/${alumnus.id}`} className="font-semibold" style={{ color: 'var(--accent-color)' }}>
-                      Request Mentorship &rarr;
+                      Request Mentorship →
                     </Link>
                   </div>
                 </div>
