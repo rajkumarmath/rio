@@ -30,6 +30,8 @@ class AlumniPublic(BaseModel):
     id: int
     first_name: str
     last_name: str
+    email: Optional[str] = None
+    linkedin_url: Optional[str] = None
     location: Optional[str] = None
     bio: Optional[str] = None
     

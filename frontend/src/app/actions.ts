@@ -142,7 +142,8 @@ export async function createAlumniAction(formData: FormData) {
         email: formData.get("email"),
         phone: formData.get("phone") || null,
         location: formData.get("location") || null,
-        bio: formData.get("bio") || null
+        bio: formData.get("bio") || null,
+        linkedin_url: formData.get("linkedin_url") || null
       })
     });
     const data = await res.json();
@@ -197,7 +198,8 @@ export async function editAlumniAction(id: number, formData: FormData) {
         email: formData.get("email"),
         phone: formData.get("phone") || null,
         location: formData.get("location") || null,
-        bio: formData.get("bio") || null
+        bio: formData.get("bio") || null,
+        linkedin_url: formData.get("linkedin_url") || null
       })
     });
     const data = await res.json();

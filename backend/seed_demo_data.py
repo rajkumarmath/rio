@@ -101,6 +101,7 @@ def seed_data():
                 "phone": "+91 98765 43210",
                 "location": "Bengaluru, Karnataka, India",
                 "bio": "Senior Cloud Infrastructure Engineer specializing in Kubernetes, AWS, and resilient microservices. Active mentor for REVA University engineering students.",
+                "linkedin_url": "https://www.linkedin.com/in/aarav-sharma-cloud",
                 "dept": "SCIT",
                 "batch": 2022,
                 "employment": [
@@ -136,6 +137,7 @@ def seed_data():
                 "phone": "+91 98450 12345",
                 "location": "Munich, Germany",
                 "bio": "Embedded Systems Architect working on autonomous vehicle perception and automotive safety electronics at Robert Bosch.",
+                "linkedin_url": "https://www.linkedin.com/in/priya-venkatesh-embedded",
                 "dept": "SECE",
                 "batch": 2020,
                 "employment": [
@@ -164,6 +166,7 @@ def seed_data():
                 "phone": "+91 97312 99881",
                 "location": "Mumbai, Maharashtra, India",
                 "bio": "Fintech Product Lead overseeing high-volume merchant payment infrastructure. Enthusiastic about student-led startup ventures.",
+                "linkedin_url": "https://www.linkedin.com/in/rohan-deshmukh-fintech",
                 "dept": "SMS",
                 "batch": 2021,
                 "employment": [
@@ -192,6 +195,7 @@ def seed_data():
                 "phone": "+91 99001 55432",
                 "location": "Seattle, Washington, USA",
                 "bio": "Machine Learning Engineer focusing on generative AI platforms, model alignment, and intelligent search systems.",
+                "linkedin_url": "https://www.linkedin.com/in/ananya-hegde-ai",
                 "dept": "SCIT",
                 "batch": 2023,
                 "employment": [
@@ -220,6 +224,7 @@ def seed_data():
                 "phone": "+91 98860 67890",
                 "location": "Hyderabad, Telangana, India",
                 "bio": "Robotics automation lead with extensive expertise in clean energy manufacturing systems and industrial robotics.",
+                "linkedin_url": "https://www.linkedin.com/in/karthik-nambiar-robotics",
                 "dept": "SME",
                 "batch": 2019,
                 "employment": [
@@ -248,6 +253,7 @@ def seed_data():
                 "phone": "+91 94480 33211",
                 "location": "Dubai, United Arab Emirates",
                 "bio": "Structural Engineering Specialist designing sustainable mega-infrastructure and low-carbon urban transit networks.",
+                "linkedin_url": "https://www.linkedin.com/in/sneha-kulkarni-structural",
                 "dept": "SCE",
                 "batch": 2021,
                 "employment": [
@@ -281,6 +287,7 @@ def seed_data():
                     phone=item["phone"],
                     location=item["location"],
                     bio=item["bio"],
+                    linkedin_url=item.get("linkedin_url"),
                     department_id=dept_map[item["dept"]].id,
                     batch_id=batch_map[item["batch"]].id,
                 )
@@ -310,6 +317,10 @@ def seed_data():
                     db.add(school)
 
                 print(f"Seeded Alumni: {profile.first_name} {profile.last_name}")
+            else:
+                if item.get("linkedin_url") and not existing.linkedin_url:
+                    existing.linkedin_url = item.get("linkedin_url")
+                    print(f"Updated LinkedIn for: {existing.first_name} {existing.last_name}")
 
         db.commit()
         print("Data seeding completed successfully!")

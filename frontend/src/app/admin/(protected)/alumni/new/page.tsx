@@ -56,7 +56,12 @@ export default function AddAlumniPage() {
           
           <div>
             <label className="font-semibold mb-xs" style={{ display: 'block' }}>Location</label>
-            <input type="text" name="location" className="input-field" disabled={pending} />
+            <input type="text" name="location" className="input-field" placeholder="e.g. Bengaluru, India" disabled={pending} />
+          </div>
+
+          <div>
+            <label className="font-semibold mb-xs" style={{ display: 'block' }}>LinkedIn Profile URL</label>
+            <input type="url" name="linkedin_url" className="input-field" placeholder="https://www.linkedin.com/in/username" disabled={pending} />
           </div>
           
           <div>

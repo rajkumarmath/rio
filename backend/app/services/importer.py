@@ -5,7 +5,7 @@ import re
 from typing import Dict, Any, List, Tuple
 from pydantic import EmailStr, validate_email
 from sqlalchemy.orm import Session
-from app.models import AlumniProfile, Department, GraduationBatch
+from app.models import AlumniProfile, Department, GraduationBatch, EmploymentHistory
 from app.schemas.importer import ColumnMapping, PreviewRow, PreviewResponse, ImportResponse
 
 UPLOAD_DIR = "uploads"
@@ -29,6 +29,14 @@ def suggest_mapping(headers: List[str]) -> ColumnMapping:
             mapping.graduation_year = h
         elif not mapping.location and ("location" in hl or "city" in hl):
             mapping.location = h
+        elif not mapping.bio and "bio" in hl:
+            mapping.bio = h
+        elif not mapping.linkedin_url and ("linkedin" in hl or "linkedin_url" in hl):
+            mapping.linkedin_url = h
+        elif not mapping.company and ("company" in hl or "employer" in hl or "organization" in hl):
+            mapping.company = h
+        elif not mapping.job_title and ("title" in hl or "role" in hl or "designation" in hl or "position" in hl):
+            mapping.job_title = h
     return mapping
 
 def validate_and_parse_df(df: pd.DataFrame, mapping: ColumnMapping, db: Session) -> Tuple[List[PreviewRow], int, int, int]:
@@ -231,6 +239,18 @@ def perform_import(file_id: str, mapping: ColumnMapping, db: Session) -> ImportR
                             batch_cache[year] = new_batch
                         batch_id = batch_cache[year].id
                 
+                linkedin_url = str(data.get(mapping.linkedin_url, "")).strip() if mapping.linkedin_url else None
+                if linkedin_url and str(linkedin_url).lower() == "nan":
+                    linkedin_url = None
+
+                company = str(data.get(mapping.company, "")).strip() if mapping.company else None
+                if company and str(company).lower() == "nan":
+                    company = None
+
+                job_title = str(data.get(mapping.job_title, "")).strip() if mapping.job_title else None
+                if job_title and str(job_title).lower() == "nan":
+                    job_title = None
+
                 profile = AlumniProfile(
                     first_name=first_name,
                     last_name=last_name,
@@ -238,10 +258,22 @@ def perform_import(file_id: str, mapping: ColumnMapping, db: Session) -> ImportR
                     phone=phone,
                     location=location,
                     bio=bio,
+                    linkedin_url=linkedin_url,
                     department_id=dept_id,
                     batch_id=batch_id
                 )
                 db.add(profile)
+                db.flush()
+
+                if company or job_title:
+                    emp = EmploymentHistory(
+                        alumni_id=profile.id,
+                        company=company or "Current Organization",
+                        title=job_title or "Professional",
+                        is_current=True
+                    )
+                    db.add(emp)
+
                 inserted += 1
                 
         db.commit()

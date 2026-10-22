@@ -79,8 +79,9 @@ def test_get_alumni_public_privacy(client, test_alumni_data):
     assert data["location"] == "New York"
     assert "employment_history" in data
     
-    # Check privacy (no email, phone, or password hash)
-    assert "email" not in data
+    # Check connect fields (email and linkedin_url present for direct connecting)
+    assert "email" in data
+    # Check strict privacy (no phone or password hash)
     assert "phone" not in data
     assert "password_hash" not in data
 

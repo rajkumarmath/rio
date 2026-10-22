@@ -10,6 +10,9 @@ class ColumnMapping(BaseModel):
     bio: Optional[str] = None
     department_name: Optional[str] = None
     graduation_year: Optional[str] = None
+    company: Optional[str] = None
+    job_title: Optional[str] = None
+    linkedin_url: Optional[str] = None
 
 class PreviewRow(BaseModel):
     row_index: int

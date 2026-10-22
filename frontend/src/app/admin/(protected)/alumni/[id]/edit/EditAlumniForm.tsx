@@ -52,6 +52,11 @@ export default function EditAlumniForm({ initialData }: { initialData: any }) {
         <label className="font-semibold mb-xs" style={{ display: 'block' }}>Location</label>
         <input type="text" name="location" className="input-field" defaultValue={initialData.location || ""} disabled={pending} />
       </div>
+
+      <div>
+        <label className="font-semibold mb-xs" style={{ display: 'block' }}>LinkedIn Profile URL</label>
+        <input type="url" name="linkedin_url" className="input-field" defaultValue={initialData.linkedin_url || ""} placeholder="https://www.linkedin.com/in/username" disabled={pending} />
+      </div>
       
       <div>
         <label className="font-semibold mb-xs" style={{ display: 'block' }}>Bio</label>

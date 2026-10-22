@@ -44,6 +44,8 @@ export interface Alumni {
   id: number;
   first_name: string;
   last_name: string;
+  email?: string;
+  linkedin_url?: string;
   location?: string;
   bio?: string;
   department?: { name: string };

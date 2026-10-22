@@ -10,6 +10,7 @@ class AlumniCreateUpdate(BaseModel):
     phone: Optional[str] = None
     location: Optional[str] = None
     bio: Optional[str] = None
+    linkedin_url: Optional[str] = None
     
     # Simple IDs for relationships for now
     department_id: Optional[int] = None
@@ -23,6 +24,7 @@ class AlumniAdminResponse(BaseModel):
     phone: Optional[str] = None
     location: Optional[str] = None
     bio: Optional[str] = None
+    linkedin_url: Optional[str] = None
     
     department: Optional[DepartmentPublic] = None
     batch: Optional[GraduationBatchPublic] = None

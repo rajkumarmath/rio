@@ -68,6 +68,7 @@ def create_alumni(data: AlumniCreateUpdate, db: Session = Depends(get_db), admin
         phone=data.phone,
         location=data.location,
         bio=data.bio,
+        linkedin_url=data.linkedin_url,
         department_id=data.department_id,
         batch_id=data.batch_id
     )
@@ -94,6 +95,7 @@ def update_alumni(alumni_id: int, data: AlumniCreateUpdate, db: Session = Depend
     profile.phone = data.phone
     profile.location = data.location
     profile.bio = data.bio
+    profile.linkedin_url = data.linkedin_url
     profile.department_id = data.department_id
     profile.batch_id = data.batch_id
     
