@@ -62,7 +62,7 @@ export default async function Home() {
           <div style={{ position: 'relative', height: '420px', width: '100%' }}>
             <Image
               src="/reva_campus_main.jpg"
-              alt="REVA University Rukmini Knowledge Park Campus"
+              alt="REVA University Rukmini Knowledge Park Campus Aerial View"
               fill
               style={{ objectFit: 'cover' }}
               priority
@@ -79,13 +79,13 @@ export default async function Home() {
               }}
             >
               <span className="badge-mentor" style={{ marginBottom: '0.5rem', display: 'inline-block' }}>
-                RUKMINI KNOWLEDGE PARK &bull; BENGALURU
+                45-ACRE GREEN CAMPUS &bull; RUKMINI KNOWLEDGE PARK
               </span>
               <h2 style={{ color: '#ffffff', fontSize: '2rem', margin: '0.25rem 0' }}>
-                A World-Class Center of Academic Excellence
+                Rukmini Knowledge Park - The Iconic REVA Campus
               </h2>
-              <p style={{ color: '#e2e8f0', maxWidth: '720px', fontSize: '0.98rem', lineHeight: 1.5 }}>
-                Home to over 15,000 students and a proud network of 35,000+ alumni across 45+ nations. Equipped with advanced innovation laboratories, moot courts, incubation hubs, and international centers.
+              <p style={{ color: '#e2e8f0', maxWidth: '780px', fontSize: '0.98rem', lineHeight: 1.5 }}>
+                Spread across 45 lush green acres in Yelahanka, Bengaluru, REVA University features world-class infrastructure including the state-of-the-art Central Library, Sir M. Visvesvaraya &amp; Swami Vivekananda Academic Blocks, REVA NEST Incubation Centre, and high-tech research laboratories.
               </p>
             </div>
           </div>
@@ -202,24 +202,24 @@ export default async function Home() {
         <div className="card grid gap-lg" style={{ gridTemplateColumns: '1.1fr 1fr', padding: '2rem', alignItems: 'center' }}>
           <div style={{ position: 'relative', height: '280px', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
             <Image
-              src="/reva_convocation.jpg"
-              alt="REVA Alumni Reunion Convocation"
+              src="/ruaa_meet.jpg"
+              alt="REVA University Alumni Association Grand Alumni Meet"
               fill
               style={{ objectFit: 'cover' }}
             />
           </div>
 
           <div>
-            <span className="badge-reva-navy mb-xs" style={{ display: 'inline-block' }}>ANNUAL REUNION &bull; RUAA</span>
+            <span className="badge-reva-navy mb-xs" style={{ display: 'inline-block' }}>ANNUAL CONVENTION &bull; RUAA</span>
             <h2 style={{ fontSize: '1.8rem', color: 'var(--primary-color)', margin: '0.5rem 0' }}>
-              REVA Alumni Association (RUAA)
+              REVA University Alumni Association (RUAA)
             </h2>
             <p className="text-secondary text-sm" style={{ lineHeight: 1.6, marginBottom: '1.25rem' }}>
-              Under the patronship of Chancellor Dr. P. Shyama Raju, RUAA organizes global alumni reunions, international chapter gatherings, career mentoring cohorts, and student scholarship endowments.
+              Under the chief patronship of Hon&apos;ble Chancellor Dr. P. Shyama Raju and Vice-Chancellor Dr. M. Dhanamjaya, the REVA University Alumni Association (RUAA) unites over 35,000 alumni worldwide, organizing the annual Grand Alumni Meet at Rukmini Knowledge Park, student scholarships, and global city chapters.
             </p>
             <div className="flex gap-sm">
               <Link href="/association" className="btn btn-outline" style={{ fontSize: '0.9rem' }}>
-                Learn More About RUAA
+                About RUAA &amp; Committee
               </Link>
               <Link href="/achievers" className="btn btn-accent" style={{ fontSize: '0.9rem' }}>
                 View Hall of Fame →

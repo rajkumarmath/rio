@@ -1,27 +1,67 @@
 {
-    "mission": "To foster a lifelong connection between REVA UNIVERSITY and its alumni.",
-    "overview": "The REVA Alumni Association serves as the primary link between the university and its global network of graduates.",
+    "mission": "To nurture a lifelong, mutually beneficial relationship between REVA University and its global alumni community, promoting academic excellence, professional mentorship, and alma mater pride.",
+    "overview": "The REVA University Alumni Association (RUAA) serves as the official link between the university and our global network of over 35,000 graduates. Headquartered at Rukmini Knowledge Park, Bengaluru, RUAA fosters professional collaboration, hosts the annual Grand Alumni Meet, expands international chapters, and empowers students through mentorship and industry engagement.",
     "contact_email": "alumni@reva.edu.in",
     "contact_phone": "+91-80-4696-6966",
-    "address": "Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bangalore, Karnataka, India, 560064",
+    "address": "REVA University Alumni Association (RUAA), Office of Alumni Relations, Administrative Block, Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bengaluru, Karnataka, India - 560064",
     "committee_members": [
         {
-            "name": "Jane Doe",
-            "role": "President"
+            "name": "Dr. P. Shyama Raju",
+            "role": "Chief Patron (Hon'ble Chancellor)"
         },
         {
-            "name": "John Smith",
-            "role": "Secretary"
+            "name": "Umesh S. Raju",
+            "role": "Patron (Pro Chancellor)"
+        },
+        {
+            "name": "Dr. M. Dhanamjaya",
+            "role": "Co-Patron (Vice Chancellor)"
+        },
+        {
+            "name": "Nataraj Urs H D",
+            "role": "Mentor & Senior Advisor"
+        },
+        {
+            "name": "Srinidhi S U",
+            "role": "President, RUAA"
+        },
+        {
+            "name": "Manjunath M",
+            "role": "Secretary, RUAA"
+        },
+        {
+            "name": "Sagar B S",
+            "role": "Joint Secretary, RUAA"
+        },
+        {
+            "name": "Naveen C",
+            "role": "Executive Committee Member"
+        },
+        {
+            "name": "Manas",
+            "role": "Executive Committee Member"
         }
     ],
     "initiatives": [
         {
-            "title": "Global Mentorship Program",
-            "description": "Connecting recent graduates with industry veterans."
+            "title": "RUAA Grand Alumni Meet",
+            "description": "Annual flagship convention celebrated at Rukmini Knowledge Park uniting alumni across all batches and schools, featuring milestone reunions and the Distinguished Alumni Awards."
         },
         {
-            "title": "Annual Alumni Fund",
-            "description": "Raising funds for student scholarships and campus improvements."
+            "title": "Alumni Assist Desk",
+            "description": "Streamlined single-window institutional service for transcripts, migration/transfer certificates, duplicate degree verification, and academic credential endorsement."
+        },
+        {
+            "title": "Student Mentorship & Career Referrals",
+            "description": "Direct student-alumni mentorship network facilitating corporate internships, resume critiques, mock technical interviews, and placement referrals across Fortune 500 companies."
+        },
+        {
+            "title": "REVA NEST Startup Incubation",
+            "description": "Partnership with REVA NEST Technology Business Incubation Centre providing alumni-founded ventures with seed funding access, co-working facilities, and patent advisory."
+        },
+        {
+            "title": "Global City Chapters",
+            "description": "Active regional chapters across Bengaluru, Delhi-NCR, Hyderabad, Mumbai, USA (Silicon Valley & East Coast), UK (London), UAE (Dubai), and Singapore."
         }
     ]
 }

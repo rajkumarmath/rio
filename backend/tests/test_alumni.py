@@ -135,13 +135,20 @@ def test_update_alumni_profile_unauthorized(test_alumni_data):
     finally:
         app.dependency_overrides = old_overrides
 
-def test_update_alumni_profile_forbidden_for_other_alumni(test_alumni_data):
+def test_update_alumni_profile_forbidden_for_other_alumni(test_alumni_data, db_session):
     from fastapi.testclient import TestClient
     from main import app
+    from app.database import get_db
     from app.core.security import create_access_token
     
+    def override_get_db():
+        try:
+            yield db_session
+        finally:
+            pass
+
     old_overrides = app.dependency_overrides.copy()
-    app.dependency_overrides = {}
+    app.dependency_overrides = {get_db: override_get_db}
     try:
         with TestClient(app) as fresh_client:
             # Token for Alumni 1 (Alice)
@@ -163,10 +170,17 @@ def test_update_alumni_profile_forbidden_for_other_alumni(test_alumni_data):
 def test_update_alumni_profile_authorized_self(test_alumni_data, db_session):
     from fastapi.testclient import TestClient
     from main import app
+    from app.database import get_db
     from app.core.security import create_access_token
     
+    def override_get_db():
+        try:
+            yield db_session
+        finally:
+            pass
+
     old_overrides = app.dependency_overrides.copy()
-    app.dependency_overrides = {}
+    app.dependency_overrides = {get_db: override_get_db}
     try:
         with TestClient(app) as fresh_client:
             alice_id = test_alumni_data[0].id

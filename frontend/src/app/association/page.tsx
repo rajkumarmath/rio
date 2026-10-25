@@ -19,8 +19,8 @@ export default async function AssociationPage() {
         <div className="container card" style={{ marginBottom: 'var(--spacing-md)', padding: 0, overflow: 'hidden' }}>
           <div style={{ position: 'relative', height: '320px', width: '100%' }}>
             <Image
-              src="/reva_convocation.jpg"
-              alt="REVA Alumni Association Grand Reunion"
+              src="/ruaa_meet.jpg"
+              alt="REVA University Alumni Association Grand Alumni Meet"
               fill
               style={{ objectFit: 'cover' }}
               priority
